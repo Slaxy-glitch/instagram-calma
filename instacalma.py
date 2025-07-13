@@ -1,8 +1,14 @@
 import time
 import random
 from colorama import init, Fore, Style
+import sys
+import os
 
 init(autoreset=True)
+
+def clear_screen():
+    # Windows ise cls, değilse clear komutu
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def print_logo():
     print(Fore.GREEN + r"""
@@ -51,24 +57,36 @@ def simulate_attack(username, mode_name):
     print(Fore.GREEN + f"✅ Şifre bulundu: {final_password}")
     print()
 
-while True:
-    print_logo()
-    choice = input()
+def main():
+    while True:
+        clear_screen()
+        print_logo()
+        choice = input().strip()
 
-    if choice == "1":
-        username = input(Fore.RED + "\nİnstagram Username: ")
-        simulate_attack(username, "Password Attack")
-    elif choice == "2":
-        username = input(Fore.RED + "\nİnstagram Username: ")
-        simulate_attack(username, "BlueForce")
-    elif choice == "3":
-        username = input(Fore.RED + "\nİnstagram Username: ")
-        simulate_attack(username, "MegaAttack")
-    elif choice == "00":
-        print(Fore.YELLOW + "\nÇıkılıyor...")
-        break
-    else:
-        print(Fore.RED + "Hatalı seçim! Lütfen tekrar deneyin.\n")
+        if choice == "1":
+            clear_screen()
+            username = input(Fore.RED + "\nİnstagram Username: ").strip()
+            clear_screen()
+            simulate_attack(username, "Password Attack")
+        elif choice == "2":
+            clear_screen()
+            username = input(Fore.RED + "\nİnstagram Username: ").strip()
+            clear_screen()
+            simulate_attack(username, "BlueForce")
+        elif choice == "3":
+            clear_screen()
+            username = input(Fore.RED + "\nİnstagram Username: ").strip()
+            clear_screen()
+            simulate_attack(username, "MegaAttack")
+        elif choice == "00":
+            print(Fore.YELLOW + "\nÇıkılıyor...")
+            break
+        else:
+            print(Fore.RED + "Hatalı seçim! Lütfen tekrar deneyin.\n")
 
-    input(Fore.YELLOW + "Devam etmek için Enter'a basın...")
-    print("\n" + "-" * 60 + "\n")
+        input(Fore.YELLOW + "Devam etmek için Enter'a basın...")
+
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
